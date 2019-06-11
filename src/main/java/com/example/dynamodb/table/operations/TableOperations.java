@@ -13,11 +13,6 @@ public class TableOperations extends DynamoClientConfig{
 
     public void CreateTable(String tableName){
 
-        //Caminho do arquivo de credenciais
-        String pathJSON = "D:\\Workspaces\\IntelliJ\\ProjectTestDynamoDB\\src\\main\\java\\com\\example\\dynamodb\\table\\resources\\awsCreds.json";
-        //Setando credenciais a partir de um arquivo JSON
-        setCredetialsJSONFromFile(pathJSON);
-
         if (tableName != null && tableName != ""){
 
             System.out.format(

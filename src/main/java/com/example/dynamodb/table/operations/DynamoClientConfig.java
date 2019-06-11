@@ -17,13 +17,14 @@ import java.io.IOException;
 public class DynamoClientConfig {
 
     //Credenciais AWS
-    AWSCredentialsProvider awsCreds = new AWSStaticCredentialsProvider(
-            new BasicAWSCredentials("idCredential", "passwordCredential")
-    );
+    AWSCredentialsProvider awsCreds;
+
+    //Caminho do arquivo de credenciais
+    String pathJSON = "D:\\Workspaces\\IntelliJ\\ProjectTestDynamoDB\\src\\main\\java\\com\\example\\dynamodb\\table\\resources\\awsCreds.json";
 
     //Construção do client
     final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-            .withCredentials(awsCreds)       //Setando credenciais a partir de um JSON
+            .withCredentials(setCredetialsJSONFromFile(pathJSON))   //Setando credenciais a partir de arquivo JSON
             .withRegion(Regions.SA_EAST_1)
             .withClientConfiguration(clientConfig())
             .build();
