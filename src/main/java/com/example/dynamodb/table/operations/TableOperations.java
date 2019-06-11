@@ -1,13 +1,10 @@
 package com.example.dynamodb.table.operations;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
-import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
-import com.amazonaws.services.dynamodbv2.model.KeyType;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
+import com.amazonaws.services.dynamodbv2.model.*;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 public class TableOperations extends DynamoClientConfig{
 
@@ -47,5 +44,28 @@ public class TableOperations extends DynamoClientConfig{
 
             System.out.println(USAGE);
         }
+    }
+
+    public void DeleteTable(String tableName){
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DeleteTable <table>\n\n" +
+                "Where:\n" +
+                "    table - the table to delete.\n\n" +
+                "Example:\n" +
+                "    DeleteTable Greetings\n\n" +
+                "**Warning** This program will actually delete the table\n" +
+                "            that you specify!\n";
+
+        System.out.format("Deleting table %s...\n", tableName);
+
+        try {
+            DeleteTableResult result = client.deleteTable(tableName);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        // snippet-end:[dynamodb.java2.delete_table.main]
+        System.out.println("Done!");
     }
 }
